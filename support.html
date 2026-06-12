@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support - Paizo</title>
+  <meta name="description" content="Get support for Paizo, including bug reports, feature requests, and general app help." />
+
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --text: #111111;
+      --muted: #5f6368;
+      --border: rgba(0, 0, 0, 0.08);
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      --button: #000000;
+      --button-text: #ffffff;
+      --link: #111111;
+    }
+
+    body.dark {
+      --bg: #0b0b0f;
+      --surface: #15151b;
+      --text: #f5f5f7;
+      --muted: #b5b7c0;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      --button: #ffffff;
+      --button-text: #000000;
+      --link: #f5f5f7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    a { color: var(--link); }
+
+    .container {
+      width: min(1000px, calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0 0;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+    }
+
+    .nav-links a,
+    .footer-links a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover,
+    .footer-links a:hover {
+      opacity: 0.75;
+    }
+
+    .theme-toggle {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    header {
+      padding: 2rem 0 1rem;
+    }
+
+    .page-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 2rem;
+    }
+
+    h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+    }
+
+    h2 {
+      margin: 1.75rem 0 0.6rem;
+      font-size: 1.25rem;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+
+    ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.65rem;
+    }
+
+    .email-box {
+      display: inline-block;
+      margin: 0.5rem 0 0.5rem;
+      padding: 0.9rem 1rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+
+    .secondary-link {
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.92rem 1rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    footer {
+      padding: 1.25rem 0 2.5rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+        <a href="legal.html">Legal</a>
+      </nav>
+
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        Dark Mode
+      </button>
+    </div>
+
+    <header>
+      <div class="page-card">
+        <h1>Support</h1>
+        <p>
+          Need help with Paizo? You can contact support for bug reports, feature requests,
+          account questions, or general app help.
+        </p>
+
+        <h2>Contact Support</h2>
+        <p>
+          For support requests, email us and include as much detail as possible so we can help faster.
+        </p>
+
+        <a class="email-box" href="mailto:acdelectrical@icloud.com">acdelectrical@icloud.com</a>
+
+        <h2>Helpful Information</h2>
+        <ul>
+          <li>Your device model</li>
+          <li>Your iOS, iPadOS or macOS version</li>
+          <li>The app version you are using</li>
+          <li>A short description of the issue</li>
+          <li>Screenshots if relevant</li>
+        </ul>
+
+        <h2>Privacy</h2>
+        <p>
+          You can also review the privacy policy for more information about how Paizo handles user privacy.
+        </p>
+
+        <div class="cta-row">
+          <a class="secondary-link" href="privacy.html">View Privacy Policy</a>
+          <a class="secondary-link" href="index.html">← Back to Home</a>
+        </div>
+      </div>
+    </header>
+
+    <footer>
+      <div>© 2026 Aaron Doe (XERODOE)</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+        <a href="legal.html">Legal</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark");
+      themeToggle.textContent = "Light Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      themeToggle.textContent = isDark ? "Light Mode" : "Dark Mode";
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  </script>
+</body>
+</html>
