@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="XZDDev.png" />
   <title>XZDDev Apps</title>
   <meta name="description" content="Explore applications by Aaron Doe (XZDDev), including Paizo and Olilo Status." />
 
@@ -235,6 +236,63 @@
       margin: 0;
     }
 
+    .about-section {
+      padding: 0 0 1.5rem;
+    }
+
+    .about-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)), var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    .profile-image {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      display: block;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+    }
+
+    .about-card p {
+      color: var(--muted);
+      margin: 0;
+      max-width: 760px;
+    }
+
+    .repo-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+
+    .repo-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 700;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.72rem 1rem;
+      background: rgba(255, 255, 255, 0.06);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .repo-link:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
     footer {
       padding: 1.5rem 0 2.5rem;
       border-top: 1px solid var(--border);
@@ -285,6 +343,15 @@
         height: 72px;
         border-radius: 16px;
       }
+
+      .about-card {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-image {
+        width: 96px;
+        height: 96px;
+      }
     }
   </style>
 </head>
@@ -329,6 +396,42 @@
         </span>
       </a>
     </main>
+
+    <section class="about-section" aria-labelledby="aboutTitle">
+      <div class="about-card">
+        <img
+          class="profile-image"
+          src="https://github.com/XZDDev.png"
+          alt="Aaron Doe profile photo"
+        />
+
+        <div>
+          <h2 id="aboutTitle">About Me</h2>
+          <p>
+            Aaron Doe, a software developer based in the UK, working primarily on Apple, Google and OSS projects. Keen to work on any projects involving Swift, Kotlin, HTML, Java, Python and Node.
+          </p>
+
+          <div class="repo-links" aria-label="Project repositories">
+            <a
+              class="repo-link"
+              href="https://gitlab.com/users/XZDDev/projects"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitLab Projects
+            </a>
+            <a
+              class="repo-link"
+              href="https://github.com/XZDDev?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub Repositories
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <footer>
       <div>© 2026 Aaron Doe (XZDDev)</div>
