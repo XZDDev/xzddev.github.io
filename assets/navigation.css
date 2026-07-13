@@ -1,0 +1,81 @@
+.topbar {
+  grid-template-columns: auto 1fr !important;
+  position: relative;
+}
+
+.menu-toggle {
+  grid-column: 2;
+  justify-self: end;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-content: center;
+  gap: 5px;
+  padding: 0;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.menu-toggle span {
+  width: 22px;
+  height: 2px;
+  display: block;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.topbar .nav-links {
+  position: absolute;
+  top: calc(100% - 0.35rem);
+  right: 0;
+  z-index: 20;
+  width: min(260px, calc(100vw - 2rem));
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.55rem;
+  background: rgba(20, 23, 32, 0.98);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+}
+
+.topbar .nav-links.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.topbar .nav-links a {
+  padding: 0.7rem 0.8rem;
+  border-radius: 6px;
+}
+
+.topbar .nav-links a:hover,
+.topbar .nav-links a:focus-visible {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  opacity: 1;
+}

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../XZDDev/favicon.svg" />
+  <title>Privacy Policy | XZDDev</title>
+  <meta name="description" content="Read the XZDDev privacy policy for open source apps and projects." />
+
+  <style>
+    :root {
+      --bg: #090a0f;
+      --surface: #141720;
+      --text: #f7f8fb;
+      --muted: #a6adbb;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+      --link: #f7f8fb;
+    }
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -35%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(76, 111, 255, 0.28), transparent 30rem),
+        radial-gradient(circle at 82% 12%, rgba(101, 232, 255, 0.16), transparent 24rem),
+        linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.035) 42%, rgba(255, 255, 255, 0.11) 50%, rgba(255, 255, 255, 0.035) 58%, transparent 82%);
+      background-size: 100% 100%, 100% 100%, 220% 220%;
+      animation: shimmerBackground 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes shimmerBackground {
+      0% {
+        transform: translate3d(-2%, -1%, 0) scale(1);
+        background-position: 0 0, 100% 0, 0% 50%;
+      }
+
+      100% {
+        transform: translate3d(2%, 1%, 0) scale(1.04);
+        background-position: 0 0, 100% 0, 100% 50%;
+      }
+    }
+
+    a { color: var(--link); }
+
+    .container {
+      width: min(1000px, calc(100% - 2rem));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand-logo {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      justify-content: center;
+      grid-column: 2;
+    }
+
+    .nav-links a,
+    .footer-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 0.55rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      opacity: 1;
+    }
+    header {
+      padding: 2rem 0 1rem;
+    }
+
+    .page-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)), var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 2rem;
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+    }
+
+    .effective-date {
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    h2 {
+      margin: 1.75rem 0 0.6rem;
+      font-size: 1.25rem;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+
+    ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.65rem;
+      color: var(--muted);
+    }
+
+    .contact-box,
+    .secondary-link {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.92rem 1rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+
+    footer {
+      padding: 1.5rem 0 2.5rem;
+      margin-top: auto;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .page-card {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(118, 182, 255, 0.38);
+      background:
+        linear-gradient(135deg, rgba(118, 182, 255, 0.18), rgba(255, 255, 255, 0.03) 44%, rgba(101, 232, 255, 0.12)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px rgba(101, 232, 255, 0.12);
+    }
+
+    .page-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .page-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+      }
+
+      .nav-links {
+        justify-content: flex-end;
+        grid-column: 2;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="brand-link" href="../XZDDev/index.html" aria-label="XZDDev home">
+        <img src="https://github.com/XZDDev.png" alt="XZDDev logo" class="brand-logo" />
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../XZDDev/index.html">Home</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="../olilo/olilo-status.html">Olilo Status</a>
+      </nav>
+    </div>
+
+    <header>
+      <div class="page-card">
+        <h1>Privacy Policy</h1>
+        <p class="effective-date">Effective Date: 06/07/2026</p>
+        <h2>Updated: 06/07/2026</h2>
+
+        <p>
+          Aaron Doe (XZDDev) creates and maintains open source apps, websites, and related projects.
+          This policy explains the privacy approach used across XZDDev projects unless a specific project
+          provides its own separate privacy notice.
+        </p>
+
+        <h2>1. No Data Collection</h2>
+        <p>
+          XZDDev projects are designed to collect zero user data. We do not collect, sell, rent, trade,
+          profile, or share personal information from users of our apps or websites.
+        </p>
+        <ul>
+          <li>We do not use cookies.</li>
+          <li>We do not run analytics or advertising trackers.</li>
+          <li>We do not require user accounts, registration, or logins.</li>
+          <li>We do not collect IP addresses, device identifiers, location data, or crash analytics.</li>
+          <li>We do not build user profiles or track users across apps, websites, or platforms.</li>
+        </ul>
+
+        <h2>2. Open Source Code</h2>
+        <p>
+          Some XZDDev projects are published as open source. Source code may be hosted on services such as
+          GitHub or GitLab. Those platforms may process data according to their own privacy policies when
+          you visit them, create an account, open an issue, submit a pull request, or otherwise interact
+          with their services.
+        </p>
+
+        <h2>3. Support Contact</h2>
+        <p>
+          If you contact us by email, you choose what information to include. We use support messages only
+          to read, respond to, investigate, and resolve the request. We do not use support emails for
+          marketing, analytics, profiling, or resale.
+        </p>
+
+        <h2>4. External Links and App Stores</h2>
+        <p>
+          XZDDev pages and apps may link to third-party services such as app stores, source code hosts,
+          documentation, or project websites. These third parties are not operated by XZDDev and may have
+          their own privacy practices. Please review their policies before using those services.
+        </p>
+
+        <h2>5. Children's Privacy</h2>
+        <p>
+          XZDDev projects do not knowingly collect personal information from anyone, including children.
+          Because no user data is collected, there is no separate child user profile or account data held
+          by XZDDev.
+        </p>
+
+        <h2>6. Changes to This Privacy Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time. When changes are made, the updated policy
+          will be posted on this page with a revised update date.
+        </p>
+
+        <h2>7. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us:</p>
+
+        <a class="contact-box" href="mailto:acdelectrical@icloud.com">acdelectrical@icloud.com</a>
+
+        <p style="margin-top: 1.25rem;">
+          Olilo Status is operated separately. For the Olilo Status Privacy Policy, visit:
+          <a href="https://olilo.co.uk/privacy" target="_blank" rel="noopener noreferrer">https://olilo.co.uk/privacy</a>
+        </p>
+
+        <div class="cta-row">
+          <a class="secondary-link" href="../XZDDev/index.html">← Back to Home</a>
+        </div>
+      </div>
+    </header>
+
+    <footer>
+      <div>© 2026 Aaron Doe (XZDDev)</div>
+      <div class="footer-links">
+        <a href="../XZDDev/index.html">Home</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="../olilo/olilo-status.html">Olilo Status</a>
+        <a href="../compliance/privacy.html">Privacy Policy</a>
+        <a href="../compliance/support.html">Support</a>
+        <a href="../compliance/legal.html">Legal</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

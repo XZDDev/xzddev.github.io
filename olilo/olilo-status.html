@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../XZDDev/favicon.svg" />
+  <title>Olilo Status</title>
+  <meta name="description" content="Olilo Status provides live outage, incident, maintenance, and service availability updates across the Olilo network." />
+  <meta property="og:title" content="Olilo Status · XZDDev" />
+  <meta property="og:description" content="Live outage, incident, maintenance, and service availability updates for the Olilo network." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://xzddev.github.io/olilo/olilo-status.html" />
+  <meta property="og:image" content="https://xzddev.github.io/olilo/olilostatus.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    :root {
+      --bg: #090a0f;
+      --surface: #141720;
+      --text: #f7f8fb;
+      --muted: #a6adbb;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+      --button: #f7f8fb;
+      --button-text: #090a0f;
+      --link: #f7f8fb;
+      --accent: #b47cff;
+      --accent-soft: rgba(180, 124, 255, 0.2);
+    }
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -35%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(76, 111, 255, 0.28), transparent 30rem),
+        radial-gradient(circle at 82% 12%, rgba(101, 232, 255, 0.16), transparent 24rem),
+        linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.035) 42%, rgba(255, 255, 255, 0.11) 50%, rgba(255, 255, 255, 0.035) 58%, transparent 82%);
+      background-size: 100% 100%, 100% 100%, 220% 220%;
+      animation: shimmerBackground 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes shimmerBackground {
+      0% {
+        transform: translate3d(-2%, -1%, 0) scale(1);
+        background-position: 0 0, 100% 0, 0% 50%;
+      }
+
+      100% {
+        transform: translate3d(2%, 1%, 0) scale(1.04);
+        background-position: 0 0, 100% 0, 100% 50%;
+      }
+    }
+
+    a { color: var(--link); }
+
+    .container {
+      width: min(1100px, calc(100% - 2rem));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand-logo {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      justify-content: center;
+      grid-column: 2;
+    }
+
+    .nav-links a,
+    .footer-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    .nav-links a:hover,
+    .footer-links a:hover { opacity: 0.75; }
+    header.hero { padding: 2rem 0 1rem; }
+
+    .hero-card,
+    .section-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)), var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .hero-card--blog-highlight {
+      position: relative;
+      overflow: hidden;
+      border-color: color-mix(in srgb, var(--accent) 48%, transparent);
+      background:
+        linear-gradient(135deg, var(--accent-soft), rgba(255, 255, 255, 0.03) 44%, color-mix(in srgb, var(--accent) 18%, transparent)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+
+    .hero-card--blog-highlight::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .hero-card--blog-highlight > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.05;
+    }
+
+    .intro {
+      margin: 0 0 1rem;
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .platform-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0 0 1rem;
+    }
+
+    .platform-badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 0.22rem 0.56rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+      font-size: 0.74rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .app-badge {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 0.55rem;
+      padding: 0.24rem 0.58rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 0.85rem;
+      row-gap: 1.35rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .store-badge img {
+      display: block;
+      height: 44px;
+      width: auto;
+    }
+
+    .google-play-badge img {
+      height: 66px;
+      margin: -11px 0;
+    }
+
+    .store-badge:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    section { padding: 1.5rem 0; }
+
+    .section-card { padding: 1.75rem; }
+
+    .content-highlight {
+      position: relative;
+      overflow: hidden;
+      border-color: color-mix(in srgb, var(--accent) 48%, transparent);
+      background:
+        linear-gradient(135deg, var(--accent-soft), rgba(255, 255, 255, 0.03) 44%, color-mix(in srgb, var(--accent) 18%, transparent)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+
+    .content-highlight::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .content-highlight > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    h2 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+    }
+
+    .features-list {
+      margin: 1rem 0 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .features-list li {
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+
+    .section-copy {
+      color: var(--muted);
+      margin: 0;
+      max-width: 760px;
+    }
+
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .screenshot {
+      width: 100%;
+      aspect-ratio: 9 / 19;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.22);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.26);
+      transition: transform 0.2s ease;
+    }
+
+    .screenshot:hover { transform: translateY(-3px); }
+
+    footer {
+      padding: 1.5rem 0 2.5rem;
+      margin-top: auto;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .hero-card,
+    .section-card {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(118, 182, 255, 0.38);
+      background:
+        linear-gradient(135deg, rgba(118, 182, 255, 0.18), rgba(255, 255, 255, 0.03) 44%, rgba(101, 232, 255, 0.12)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px rgba(101, 232, 255, 0.12);
+    }
+
+    .hero-card::after,
+    .section-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .hero-card > *,
+    .section-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+      }
+
+      .nav-links {
+        justify-content: flex-end;
+        grid-column: 2;
+      }
+
+      .hero-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .screenshots-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .app-icon { margin: 0 auto; }
+
+      .intro {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .platform-badges { justify-content: center; }
+
+      .cta-row { justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before {
+        animation: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/navigation.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="brand-link" href="../XZDDev/index.html" aria-label="XZDDev home">
+        <img src="https://github.com/XZDDev.png" alt="XZDDev logo" class="brand-logo" />
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNavigation">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav-links" id="primaryNavigation" aria-label="Primary" aria-hidden="true">
+        <a href="../XZDDev/index.html">Home</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="../olilo/olilo-status.html">Olilo Status</a>
+      </nav>
+    </div>
+
+    <header class="hero">
+      <div class="hero-card hero-card--blog-highlight">
+        <img src="olilostatus.png" alt="Olilo Status Icon" class="app-icon" />
+
+        <div>
+          <span class="app-badge">Available Now</span>
+          <h1>Olilo Status</h1>
+
+          <p class="intro">
+            Olilo Status keeps important network availability information close at hand, with live outage, incident, maintenance,
+            and service status updates for the Olilo network on iPhone, iPad, Mac, and Android.
+          </p>
+
+          <div class="platform-badges" aria-label="Available on">
+            <span class="platform-badge">iOS</span>
+            <span class="platform-badge">Android</span>
+            <span class="platform-badge">macOS</span>
+          </div>
+
+          <div class="cta-row">
+            <a
+              class="store-badge app-store-badge"
+              href="https://apps.apple.com/gb/app/olilo-status/id6779934925"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download Olilo Status on the App Store"
+            >
+              <img
+                src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                alt="Download on the App Store"
+              />
+            </a>
+
+            <a
+              class="store-badge google-play-badge"
+              href="https://play.google.com/store/apps/details?id=uk.co.olilo.status&pli=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Get Olilo Status on Google Play"
+            >
+              <img
+                src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                alt="Get it on Google Play"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-card content-highlight">
+        <h2>Overview</h2>
+
+        <p class="section-copy">
+          Stay informed about service disruptions, follow incident progress, and check planned maintenance that may affect your connection.
+        </p>
+
+        <h2 style="margin-top: 1.75rem;">Features</h2>
+
+        <ul class="features-list">
+          <li>Live outage information across the Olilo network.</li>
+          <li>Live incident progress and resolution updates.</li>
+          <li>Planned maintenance details before work begins.</li>
+          <li>Service availability overview for quick checks.</li>
+          <li>Historical incident reports for past service events.</li>
+          <li>Simple, focused interface for checking status on Apple and Android devices.</li>
+        </ul>
+
+        <p class="section-copy" style="margin-top: 1rem;">
+          Whether you're checking a reported issue or looking for the latest network updates, Olilo Status helps you stay informed wherever you are.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="screenshotsTitle">
+      <div class="section-card">
+        <h2 id="screenshotsTitle">Screenshots</h2>
+
+        <p class="section-copy">
+          Check Olilo network status from iOS and Android, with incidents, service availability, and maintenance details close at hand.
+        </p>
+
+        <div class="screenshots-grid">
+          <img src="olilo-ios-1.png" alt="Olilo Status iOS overview screenshot" class="screenshot" />
+          <img src="olilo-ios-2.png" alt="Olilo Status iOS incidents screenshot" class="screenshot" />
+          <img src="olilo-ios-3.png" alt="Olilo Status iOS details screenshot" class="screenshot" />
+          <img src="olilo-android-1.png" alt="Olilo Status Android overview screenshot" class="screenshot" />
+          <img src="olilo-android-2.png" alt="Olilo Status Android incidents screenshot" class="screenshot" />
+          <img src="olilo-android-3.png" alt="Olilo Status Android details screenshot" class="screenshot" />
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2026 Aaron Doe (XZDDev)</div>
+
+      <div class="footer-links">
+        <a href="../XZDDev/index.html">Home</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="../olilo/olilo-status.html">Olilo Status</a>
+        <a href="../compliance/privacy.html">Privacy Policy</a>
+        <a href="../compliance/support.html">Support</a>
+        <a href="../compliance/legal.html">Legal</a>
+      </div>
+    </footer>
+  </div>
+  <script src="../assets/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="XZDDev/favicon.svg" />
+  <title>XZDDev Apps</title>
+  <meta http-equiv="refresh" content="0; url=XZDDev/index.html" />
+  <link rel="canonical" href="XZDDev/index.html" />
+  <style>
+    :root {
+      --bg: #090a0f;
+      --text: #f7f8fb;
+      --link: #f7f8fb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -35%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(76, 111, 255, 0.28), transparent 30rem),
+        radial-gradient(circle at 82% 12%, rgba(101, 232, 255, 0.16), transparent 24rem),
+        linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.035) 42%, rgba(255, 255, 255, 0.11) 50%, rgba(255, 255, 255, 0.035) 58%, transparent 82%);
+      background-size: 100% 100%, 100% 100%, 220% 220%;
+      animation: shimmerBackground 18s ease-in-out infinite alternate;
+    }
+
+    p {
+      position: relative;
+      z-index: 1;
+    }
+
+    a {
+      color: var(--link);
+      font-weight: 700;
+    }
+
+    @keyframes shimmerBackground {
+      0% {
+        transform: translate3d(-2%, -1%, 0) scale(1);
+        background-position: 0 0, 100% 0, 0% 50%;
+      }
+
+      100% {
+        transform: translate3d(2%, 1%, 0) scale(1.04);
+        background-position: 0 0, 100% 0, 100% 50%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <p><a href="XZDDev/index.html">Continue to XZDDev Apps</a></p>
+</body>
+</html>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>XZDDev Apps</title>
+  <meta name="description" content="Explore applications by Aaron Doe (XZDDev), including ReleaseQuest, Paizo, and Olilo Status." />
+  <meta property="og:title" content="XZDDev Apps" />
+  <meta property="og:description" content="Explore apps by Aaron Doe for PlayStation, Nintendo, network status, and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://xzddev.github.io/XZDDev/" />
+  <meta property="og:image" content="https://github.com/XZDDev.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    :root {
+      --bg: #090a0f;
+      --surface: #141720;
+      --text: #f7f8fb;
+      --muted: #a6adbb;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+      --button: #f7f8fb;
+      --button-text: #090a0f;
+      --link: #f7f8fb;
+      --accent: #65e8ff;
+      --accent-soft: rgba(101, 232, 255, 0.16);
+    }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -35%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(76, 111, 255, 0.28), transparent 30rem),
+        radial-gradient(circle at 82% 12%, rgba(101, 232, 255, 0.16), transparent 24rem),
+        linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.035) 42%, rgba(255, 255, 255, 0.11) 50%, rgba(255, 255, 255, 0.035) 58%, transparent 82%);
+      background-size: 100% 100%, 100% 100%, 220% 220%;
+      animation: shimmerBackground 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes shimmerBackground {
+      0% {
+        transform: translate3d(-2%, -1%, 0) scale(1);
+        background-position: 0 0, 100% 0, 0% 50%;
+      }
+
+      100% {
+        transform: translate3d(2%, 1%, 0) scale(1.04);
+        background-position: 0 0, 100% 0, 100% 50%;
+      }
+    }
+
+    a {
+      color: var(--link);
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 2rem));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+      position: relative;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
+      font-size: 1.08rem;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      display: block;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand-name {
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      position: absolute;
+      top: calc(100% - 0.35rem);
+      right: 0;
+      z-index: 20;
+      width: min(260px, calc(100vw - 2rem));
+      display: grid;
+      gap: 0.25rem;
+      padding: 0.55rem;
+      background: rgba(20, 23, 32, 0.98);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+
+    .nav-links.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      padding: 0.7rem 0.8rem;
+      border-radius: 6px;
+    }
+
+    .menu-toggle {
+      grid-column: 2;
+      justify-self: end;
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-content: center;
+      gap: 5px;
+      padding: 0;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .menu-toggle:hover,
+    .menu-toggle:focus-visible {
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .menu-toggle span {
+      width: 22px;
+      height: 2px;
+      display: block;
+      border-radius: 2px;
+      background: currentColor;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      opacity: 1;
+    }
+
+    .nav-links a:hover,
+    .footer-links a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      opacity: 1;
+    }
+    header.hero {
+      padding: 2rem 0 1rem;
+    }
+
+    .hero-card,
+    .app-card,
+    .section-card,
+    .update-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)), var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .hero-card--blog-highlight {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(118, 182, 255, 0.38);
+      background:
+        linear-gradient(135deg, rgba(118, 182, 255, 0.18), rgba(255, 255, 255, 0.03) 44%, rgba(101, 232, 255, 0.12)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px rgba(101, 232, 255, 0.12);
+    }
+
+    .hero-card--blog-highlight::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .hero-card--blog-highlight > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-icon {
+      width: 88px;
+      height: 88px;
+      border-radius: 20px;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.05;
+    }
+
+    h1 code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .intro {
+      margin: 0 0 1rem;
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .app-store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--button);
+      color: var(--button-text);
+      text-decoration: none;
+      padding: 0.92rem 1.2rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      font-weight: 600;
+    }
+
+    .app-store-badge:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .apple-logo {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .badge-text {
+      line-height: 1.05;
+      text-align: left;
+    }
+
+    .badge-text small {
+      display: block;
+      font-size: 0.72rem;
+      opacity: 0.85;
+      letter-spacing: 0;
+    }
+
+    .badge-text strong {
+      display: block;
+      font-size: 1.02rem;
+      font-weight: 700;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      padding: 1.5rem 0;
+    }
+
+    .app-card {
+      padding: 1.25rem;
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 1rem;
+      align-items: center;
+      text-decoration: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .app-card--paizo { --accent: #4c6fff; --accent-soft: rgba(76, 111, 255, 0.18); }
+    .app-card--olilo { --accent: #b47cff; --accent-soft: rgba(180, 124, 255, 0.2); }
+    .app-card--releasequest { --accent: #ff5d5d; --accent-soft: rgba(255, 93, 93, 0.18); }
+
+    .app-card--highlight,
+    .app-card--teaser {
+      position: relative;
+      overflow: hidden;
+      border-color: color-mix(in srgb, var(--accent) 48%, transparent);
+      background:
+        linear-gradient(135deg, var(--accent-soft), rgba(255, 255, 255, 0.03) 44%, color-mix(in srgb, var(--accent) 18%, transparent)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px color-mix(in srgb, var(--accent) 20%, transparent);
+      color: var(--text);
+    }
+
+    .app-card--highlight::after,
+    .app-card--teaser::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .app-card--highlight > *,
+    .app-card--teaser > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .app-card--highlight:hover,
+    .app-card--teaser:hover {
+      transform: translateY(-3px);
+      opacity: 1;
+    }
+
+    .app-card:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    .teaser-icon {
+      width: 88px;
+      height: 88px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.62), transparent 0.45rem),
+        linear-gradient(145deg, #233759, #111722 56%, #0b111b);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+      color: var(--text);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .teaser-icon::before,
+    .teaser-icon::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(101, 232, 255, 0.44);
+      border-radius: 999px;
+    }
+
+    .teaser-icon::before {
+      width: 62px;
+      height: 62px;
+      transform: rotate(-18deg);
+    }
+
+    .teaser-icon::after {
+      width: 42px;
+      height: 42px;
+      transform: rotate(28deg);
+      border-color: rgba(118, 182, 255, 0.46);
+    }
+
+    .teaser-icon span {
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 18px rgba(101, 232, 255, 0.72);
+    }
+
+    .app-badge {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 0.4rem;
+      padding: 0.24rem 0.58rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+    }
+
+    .app-card h2 {
+      margin: 0 0 0.25rem;
+      font-size: 1.35rem;
+    }
+
+    .app-card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .platform-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .platform-badge {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 0.22rem 0.56rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+      font-size: 0.74rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .card-shots {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.55rem;
+      margin-top: 0.15rem;
+    }
+
+    .card-shot {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .section-card {
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+    }
+
+    .section-link {
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .updates-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .update-card {
+      padding: 1rem;
+      text-decoration: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .update-card:hover {
+      transform: translateY(-2px);
+      opacity: 0.96;
+    }
+
+    .update-meta {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin: 0 0 0.35rem;
+    }
+
+    .update-card h3 {
+      margin: 0 0 0.55rem;
+      font-size: 1.05rem;
+      line-height: 1.2;
+    }
+
+    .update-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .about-section {
+      padding: 0 0 1.5rem;
+    }
+
+    .about-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)), var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    .profile-image {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      display: block;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+    }
+
+    .about-card p {
+      color: var(--muted);
+      margin: 0;
+      max-width: 760px;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 1rem 0 0;
+    }
+
+    .repo-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
+    }
+
+    .repo-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 700;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.72rem 1rem;
+      background: rgba(255, 255, 255, 0.06);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .repo-link:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    footer {
+      padding: 1.5rem 0 2.5rem;
+      margin-top: auto;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .hero-card,
+    .section-card,
+    .about-card {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(118, 182, 255, 0.38);
+      background:
+        linear-gradient(135deg, rgba(118, 182, 255, 0.18), rgba(255, 255, 255, 0.03) 44%, rgba(101, 232, 255, 0.12)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px rgba(101, 232, 255, 0.12);
+    }
+
+    .hero-card::after,
+    .section-card::after,
+    .about-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .hero-card > *,
+    .section-card > *,
+    .about-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 760px) {
+      .app-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card,
+      .updates-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .app-card {
+        grid-template-columns: 72px 1fr;
+      }
+
+      .app-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 16px;
+      }
+
+      .teaser-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 16px;
+        font-size: 1.7rem;
+      }
+
+      .about-card {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-image {
+        width: 96px;
+        height: 96px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="brand-link" href="index.html" aria-label="XZDDev home">
+        <img src="https://github.com/XZDDev.png" alt="XZDDev logo" class="brand-logo" />
+        <span class="brand-name">XZDDev</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNavigation">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav-links" id="primaryNavigation" aria-label="Primary" aria-hidden="true">
+        <a href="index.html">Home</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="../olilo/olilo-status.html">Olilo Status</a>
+      </nav>
+    </div>
+
+    <header class="hero">
+      <div class="hero-card hero-card--blog-highlight">
+        <div>
+          <h1>Welcome to XZDDev.</h1>
+
+          <p class="intro">
+            A collection of focused apps across Apple, Google, Web, and Server platforms, built by Aaron Doe under XZDDev.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <section aria-labelledby="updatesTitle">
+      <div class="section-card">
+        <div class="section-heading">
+          <h2 id="updatesTitle">Latest Updates</h2>
+          <a class="section-link" href="../blog/index.html">View all posts</a>
+        </div>
+
+        <div class="updates-grid">
+          <a class="update-card" href="../blog/index.html#releasequest-app-store-launch">
+            <p class="update-meta">Coming soon · App Store</p>
+            <h3>ReleaseQuest is coming soon to the App Store</h3>
+            <p>Upcoming games, pinned favourites, search, and a personal release calendar for Apple users.</p>
+          </a>
+
+          <a class="update-card" href="../blog/index.html#releasequest-google-play-launch">
+            <p class="update-meta">Coming soon · Google Play</p>
+            <h3>ReleaseQuest is coming soon to Google Play</h3>
+            <p>Nintendo release tracking, pinned games, search, and a personal calendar.</p>
+          </a>
+
+          <a class="update-card" href="../blog/index.html#olilo-status-android-launch">
+            <p class="update-meta">28 June 2026 · Google Play</p>
+            <h3>Olilo Status launches on Google Play</h3>
+            <p>Live status updates for Android and foldable devices.</p>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <main aria-label="Applications">
+      <section aria-labelledby="currentProjectsTitle">
+        <div class="section-card">
+          <div class="section-heading">
+            <h2 id="currentProjectsTitle">Current Projects</h2>
+          </div>
+
+          <div class="app-grid">
+      <a class="app-card app-card--highlight app-card--releasequest" href="../releasequest/releasequest.html">
+        <img src="../releasequest/releasequest.png" alt="ReleaseQuest Icon" class="app-icon" />
+        <div>
+          <span class="app-badge">Coming Soon</span>
+          <h2>ReleaseQuest</h2>
+          <p>Nintendo Switch and Switch 2 release tracker with upcoming games, pinned favourites, search, and a personal release calendar, coming soon to the App Store and Google Play.</p>
+          <div class="platform-badges" aria-label="Coming soon to">
+            <span class="platform-badge">iOS</span>
+            <span class="platform-badge">Android</span>
+          </div>
+        </div>
+        <div class="card-shots" aria-hidden="true">
+          <img src="../releasequest/i1.png" alt="" class="card-shot" />
+          <img src="../releasequest/i2.png" alt="" class="card-shot" />
+          <img src="../releasequest/a1.png" alt="" class="card-shot" />
+        </div>
+      </a>
+
+      <a class="app-card app-card--highlight app-card--olilo" href="../olilo/olilo-status.html">
+        <img src="../olilo/olilostatus.png" alt="Olilo Status Icon" class="app-icon" />
+        <div>
+          <span class="app-badge">Available Now</span>
+          <h2>Olilo Status</h2>
+          <p>Live outage, incident, and planned maintenance updates for the Olilo network, available on the App Store and Google Play.</p>
+          <div class="platform-badges" aria-label="Available on">
+            <span class="platform-badge">iOS</span>
+            <span class="platform-badge">Android</span>
+            <span class="platform-badge">macOS</span>
+          </div>
+        </div>
+        <div class="card-shots" aria-hidden="true">
+          <img src="../olilo/olilo-ios-1.png" alt="" class="card-shot" />
+          <img src="../olilo/olilo-ios-2.png" alt="" class="card-shot" />
+          <img src="../olilo/olilo-android-1.png" alt="" class="card-shot" />
+        </div>
+      </a>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <section aria-labelledby="previousProjectsTitle">
+      <div class="section-card">
+        <div class="section-heading">
+          <h2 id="previousProjectsTitle">Previous Projects</h2>
+        </div>
+
+        <a class="app-card app-card--highlight app-card--paizo" href="../paizo/paizo.html">
+          <img src="../paizo/paizo.png" alt="Paizo Icon" class="app-icon" />
+          <div>
+            <span class="app-badge">Previous Project</span>
+            <h2>Paizo</h2>
+            <p>A former PlayStation companion project for game statistics, library organisation, trophy tools, guides and widgets, which still lasted longer than Concord did.</p>
+            <div class="platform-badges" aria-label="Formerly supported platforms">
+              <span class="platform-badge">iOS</span>
+              <span class="platform-badge">macOS</span>
+              <span class="platform-badge">watchOS</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="about-section" aria-labelledby="aboutTitle">
+      <div class="about-card">
+        <img
+          class="profile-image"
+          src="https://github.com/XZDDev.png"
+          alt="Aaron Doe profile photo"
+        />
+
+        <div>
+          <h2 id="aboutTitle">About Me</h2>
+          <p>
+            Aaron Doe is a software developer based in the UK, building focused apps for Apple, Google, web, and server platforms. XZDDev is where polished product ideas, open source experiments, and privately owned projects come together.
+          </p>
+
+          <div class="skill-list" aria-label="Skills and platforms">
+            <span class="platform-badge">Swift</span>
+            <span class="platform-badge">Kotlin</span>
+            <span class="platform-badge">HTML</span>
+            <span class="platform-badge">Java</span>
+            <span class="platform-badge">Python</span>
+            <span class="platform-badge">Node</span>
+            <span class="platform-badge">iOS</span>
+            <span class="platform-badge">Android</span>
+          </div>
+
+          <div class="repo-links" aria-label="Project repositories">
+            <a
+              class="repo-link"
+              href="https://gitlab.com/users/XZDDev/projects"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitLab Projects
+            </a>
+            <a
+              class="repo-link"
+              href="https://github.com/XZDDev?tab=repositories"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub Repositories
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© 2026 Aaron Doe (XZDDev)</div>
+
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="../olilo/olilo-status.html">Olilo Status</a>
+        <a href="../compliance/privacy.html">Privacy Policy</a>
+        <a href="../compliance/support.html">Support</a>
+        <a href="../compliance/legal.html">Legal</a>
+      </div>
+    </footer>
+  </div>
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navigation = document.querySelector('.nav-links');
+
+    function setMenuOpen(open) {
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      navigation.setAttribute('aria-hidden', String(!open));
+      navigation.classList.toggle('is-open', open);
+    }
+
+    menuToggle.addEventListener('click', () => {
+      setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.topbar')) setMenuOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+        setMenuOpen(false);
+        menuToggle.focus();
+      }
+    });
+
+    navigation.addEventListener('click', () => setMenuOpen(false));
+  </script>
+</body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../XZDDev/favicon.svg" />
+  <title>XZDDev Blog</title>
+  <meta name="description" content="Launch notes for XZDDev apps including ReleaseQuest, Olilo Status, and Paizo." />
+  <meta property="og:title" content="XZDDev Blog" />
+  <meta property="og:description" content="Launch notes, app updates, and product news from XZDDev." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://xzddev.github.io/blog/" />
+  <meta property="og:image" content="https://github.com/XZDDev.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    :root {
+      --bg: #090a0f;
+      --surface: #141720;
+      --text: #f7f8fb;
+      --muted: #a6adbb;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+      --link: #f7f8fb;
+      --accent: #65e8ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -35%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(76, 111, 255, 0.28), transparent 30rem),
+        radial-gradient(circle at 82% 12%, rgba(101, 232, 255, 0.16), transparent 24rem),
+        linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.035) 42%, rgba(255, 255, 255, 0.11) 50%, rgba(255, 255, 255, 0.035) 58%, transparent 82%);
+      background-size: 100% 100%, 100% 100%, 220% 220%;
+      animation: shimmerBackground 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes shimmerBackground {
+      0% {
+        transform: translate3d(-2%, -1%, 0) scale(1);
+        background-position: 0 0, 100% 0, 0% 50%;
+      }
+
+      100% {
+        transform: translate3d(2%, 1%, 0) scale(1.04);
+        background-position: 0 0, 100% 0, 100% 50%;
+      }
+    }
+
+    a { color: var(--link); }
+
+    .container {
+      width: min(1100px, calc(100% - 2rem));
+      min-height: 100vh;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
+      font-size: 1.08rem;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      display: block;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand-name { white-space: nowrap; }
+
+    .nav-links,
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-links {
+      grid-column: 2;
+    }
+
+    .nav-links a,
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .nav-links a {
+      padding: 0.55rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .nav-links a[aria-current="page"],
+    .nav-links a:hover,
+    .footer-links a:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      opacity: 1;
+    }
+
+    header.hero { padding: 2rem 0 1rem; }
+
+    .hero-card,
+    .post-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)), var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .app-badge {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 0.55rem;
+      padding: 0.24rem 0.58rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.05;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      line-height: 1.15;
+    }
+
+    .intro {
+      margin: 0;
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .post-list {
+      display: grid;
+      gap: 1rem;
+      padding: 1.5rem 0;
+    }
+
+    .post-card {
+      padding: 1.25rem;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .post-card:hover {
+      transform: translateY(-2px);
+      opacity: 0.98;
+    }
+
+    .content-highlight {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(118, 182, 255, 0.38);
+      background:
+        linear-gradient(135deg, rgba(118, 182, 255, 0.18), rgba(255, 255, 255, 0.03) 44%, rgba(101, 232, 255, 0.12)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px rgba(101, 232, 255, 0.12);
+    }
+
+    .content-highlight::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .content-highlight > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-highlight--olilo {
+      border-color: color-mix(in srgb, #b47cff 48%, transparent);
+      background:
+        linear-gradient(135deg, rgba(180, 124, 255, 0.2), rgba(255, 255, 255, 0.03) 44%, rgba(180, 124, 255, 0.18)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px rgba(180, 124, 255, 0.18);
+    }
+
+    .post-header {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .app-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .post-meta {
+      color: var(--muted);
+      font-weight: 700;
+      margin: 0 0 0.2rem;
+    }
+
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.55rem 0 0;
+    }
+
+    .post-tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 0.2rem 0.52rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .post-copy {
+      color: var(--muted);
+      margin: 0.9rem 0 0;
+      max-width: 800px;
+    }
+
+    .post-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .post-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 700;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.72rem 1rem;
+      background: rgba(255, 255, 255, 0.06);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .post-link:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .launch-image {
+      width: 100%;
+      max-height: 780px;
+      display: block;
+      object-fit: contain;
+      border: 0;
+      border-radius: 12px;
+      clip-path: inset(0 round 12px);
+      background: transparent;
+    }
+
+    footer {
+      padding: 1.5rem 0 2.5rem;
+      margin-top: auto;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      margin-top: 0.75rem;
+    }
+
+    .hero-card,
+    .post-card {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(118, 182, 255, 0.38);
+      background:
+        linear-gradient(135deg, rgba(118, 182, 255, 0.18), rgba(255, 255, 255, 0.03) 44%, rgba(101, 232, 255, 0.12)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px rgba(101, 232, 255, 0.12);
+    }
+
+    .hero-card::after,
+    .post-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .hero-card > *,
+    .post-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+      }
+
+      .nav-links {
+        justify-content: flex-end;
+        grid-column: 2;
+      }
+
+      .hero-card {
+        grid-template-columns: 1fr;
+      }
+
+      .post-header {
+        grid-template-columns: 60px 1fr;
+      }
+
+      .app-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before {
+        animation: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/navigation.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="brand-link" href="../XZDDev/index.html" aria-label="XZDDev home">
+        <img src="https://github.com/XZDDev.png" alt="XZDDev logo" class="brand-logo" />
+        <span class="brand-name">XZDDev</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNavigation">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav-links" id="primaryNavigation" aria-label="Primary" aria-hidden="true">
+        <a href="../XZDDev/index.html">Home</a>
+        <a href="index.html" aria-current="page">Blog</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="../olilo/olilo-status.html">Olilo Status</a>
+      </nav>
+    </div>
+
+    <header class="hero">
+      <div class="hero-card content-highlight">
+        <div>
+          <h1>XZDDev.Blog</h1>
+          <p class="intro">
+            Launch notes, platform releases, and product updates from XZDDev, with the latest app milestones collected in one place.
+          </p>
+        </div>
+
+      </div>
+    </header>
+
+    <main class="post-list" aria-label="Blog posts">
+      <article class="post-card content-highlight" id="releasequest-app-store-launch">
+        <div class="post-header">
+          <img src="../releasequest/releasequest.png" alt="ReleaseQuest Icon" class="app-icon" />
+          <div>
+            <p class="post-meta">Coming soon · App Store</p>
+            <h2>ReleaseQuest is coming soon to the App Store</h2>
+            <div class="post-tags" aria-label="Post categories">
+              <span class="post-tag">Coming soon</span>
+              <span class="post-tag">App Store</span>
+              <span class="post-tag">ReleaseQuest</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="i1.png"
+          alt="ReleaseQuest App Store launch artwork"
+          class="launch-image"
+        />
+
+        <p class="post-copy">
+          ReleaseQuest is coming soon to the App Store, bringing its focused Nintendo release tracker to Apple users.
+          Browse upcoming Switch and Switch 2 games, pin favourites, search the catalogue, and keep a personal release calendar.
+        </p>
+
+        <div class="post-actions">
+          <a class="post-link" href="../releasequest/releasequest.html">View ReleaseQuest</a>
+          <a class="post-link" href="../XZDDev/index.html">App Store</a>
+        </div>
+      </article>
+
+      <article class="post-card content-highlight" id="releasequest-google-play-launch">
+        <div class="post-header">
+          <img src="../releasequest/releasequest.png" alt="ReleaseQuest Icon" class="app-icon" />
+          <div>
+            <p class="post-meta">Coming soon · Google Play</p>
+            <h2>ReleaseQuest is coming soon to Google Play</h2>
+            <div class="post-tags" aria-label="Post categories">
+              <span class="post-tag">Coming soon</span>
+              <span class="post-tag">Google Play</span>
+              <span class="post-tag">ReleaseQuest</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="a1.png"
+          alt="ReleaseQuest Google Play launch artwork"
+          class="launch-image"
+        />
+
+        <p class="post-copy">
+          ReleaseQuest is coming soon to Google Play for Android. Nintendo Switch and Switch 2 players can browse upcoming
+          releases, pin the games they are excited about, search the catalogue, and build a personal release calendar in one focused app.
+        </p>
+
+        <div class="post-actions">
+          <a class="post-link" href="../releasequest/releasequest.html">View ReleaseQuest</a>
+          <a class="post-link" href="../XZDDev/index.html">Google Play</a>
+        </div>
+      </article>
+
+      <article class="post-card content-highlight content-highlight--olilo" id="olilo-status-android-launch">
+        <div class="post-header">
+          <img src="../olilo/olilostatus.png" alt="Olilo Status Icon" class="app-icon" />
+          <div>
+            <p class="post-meta">28 June 2026 · Google Play launch</p>
+            <h2>Olilo Status launches on Google Play</h2>
+            <div class="post-tags" aria-label="Post categories">
+              <span class="post-tag">Launch</span>
+              <span class="post-tag">Google Play</span>
+              <span class="post-tag">Olilo Status</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="Olilo Status Android Launch.png"
+          alt="Olilo Status Android launch screenshot"
+          class="launch-image"
+        />
+
+        <p class="post-copy">
+          Olilo Status is now live on Google Play for Android, including foldable support. It keeps live outage, incident,
+          planned maintenance, service availability, and historical incident information close at hand for the Olilo network.
+        </p>
+
+        <div class="post-actions">
+          <a class="post-link" href="../olilo/olilo-status.html">View Olilo Status</a>
+          <a class="post-link" href="https://play.google.com/store/apps/details?id=uk.co.olilo.status&pli=1" target="_blank" rel="noopener noreferrer">Google Play</a>
+        </div>
+      </article>
+
+      <article class="post-card content-highlight content-highlight--olilo" id="olilo-status-ios-launch">
+        <div class="post-header">
+          <img src="../olilo/olilostatus.png" alt="Olilo Status Icon" class="app-icon" />
+          <div>
+            <p class="post-meta">17 June 2026 · App Store launch</p>
+            <h2>Olilo Status launches on the App Store</h2>
+            <div class="post-tags" aria-label="Post categories">
+              <span class="post-tag">Launch</span>
+              <span class="post-tag">App Store</span>
+              <span class="post-tag">Olilo Status</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="Olilo Status iOS launch.png"
+          alt="Olilo Status iOS launch screenshot"
+          class="launch-image"
+        />
+
+        <p class="post-copy">
+          Olilo Status launched on the App Store for iPhone and iPad. The app provides focused network status updates, helping users
+          follow disruptions, incident progress, planned maintenance, and current service availability.
+        </p>
+
+        <div class="post-actions">
+          <a class="post-link" href="../olilo/olilo-status.html">View Olilo Status</a>
+          <a class="post-link" href="https://apps.apple.com/gb/app/olilo-status/id6779934925" target="_blank" rel="noopener noreferrer">App Store</a>
+        </div>
+      </article>
+
+      <article class="post-card content-highlight" id="paizo-ios-launch">
+        <div class="post-header">
+          <img src="../paizo/paizo.png" alt="Paizo Icon" class="app-icon" />
+          <div>
+            <p class="post-meta">26 March 2026 · App Store launch</p>
+            <h2>Paizo launches on the App Store</h2>
+            <div class="post-tags" aria-label="Post categories">
+              <span class="post-tag">Launch</span>
+              <span class="post-tag">App Store</span>
+              <span class="post-tag">Paizo</span>
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="Paizo iOS launch.png"
+          alt="Paizo iOS launch screenshot"
+          class="launch-image"
+        />
+
+        <p class="post-copy">
+          After nearly two years in development, Paizo launched on the App Store for iPhone, iPad, Apple Watch, and Mac. Paizo brings
+          PlayStation game library tracking, rich game details, trophies, friends, trophy guides, widgets, weekly summaries, themes,
+          and Apple Watch support into one companion app.
+        </p>
+
+        <div class="post-actions">
+          <a class="post-link" href="../paizo/paizo.html">View Paizo</a>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <div>© 2026 Aaron Doe (XZDDev)</div>
+
+      <div class="footer-links">
+        <a href="../XZDDev/index.html">Home</a>
+        <a href="index.html">Blog</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="../olilo/olilo-status.html">Olilo Status</a>
+        <a href="../compliance/privacy.html">Privacy Policy</a>
+        <a href="../compliance/support.html">Support</a>
+        <a href="../compliance/legal.html">Legal</a>
+      </div>
+    </footer>
+  </div>
+  <script src="../assets/navigation.js"></script>
+</body>
+</html>
