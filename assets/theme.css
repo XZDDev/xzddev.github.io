@@ -1,0 +1,79 @@
+:root {
+  --bg: #090a0f;
+  --surface: #141720;
+  --text: #f7f8fb;
+  --muted: #a6adbb;
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+  --accent: #65e8ff;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  isolation: isolate;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 14% 22%, rgba(76, 111, 255, 0.5) 0 8%, transparent 32%),
+    radial-gradient(circle at 84% 18%, rgba(101, 232, 255, 0.34) 0 7%, transparent 30%),
+    radial-gradient(circle at 52% 82%, rgba(180, 124, 255, 0.3) 0 8%, transparent 34%),
+    conic-gradient(from 215deg at 50% 50%, transparent 0 24%, rgba(101, 232, 255, 0.12) 34%, rgba(118, 182, 255, 0.2) 42%, transparent 55% 100%);
+  filter: saturate(1.25);
+  animation: auroraDrift 11s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  will-change: transform, filter;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.34;
+  background: linear-gradient(108deg, transparent 32%, rgba(255, 255, 255, 0.12) 48%, transparent 64%);
+  background-size: 220% 100%;
+  animation: lightSweep 7s ease-in-out infinite;
+}
+
+@keyframes auroraDrift {
+  from {
+    transform: translate3d(-4%, -2%, 0) rotate(-2deg) scale(1);
+    filter: saturate(1.15) hue-rotate(-6deg);
+  }
+
+  to {
+    transform: translate3d(4%, 3%, 0) rotate(3deg) scale(1.12);
+    filter: saturate(1.45) hue-rotate(12deg);
+  }
+}
+
+@keyframes lightSweep {
+  0%, 18% {
+    background-position: 120% 0;
+    opacity: 0;
+  }
+
+  48% {
+    opacity: 0.36;
+  }
+
+  78%, 100% {
+    background-position: -120% 0;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
+}
