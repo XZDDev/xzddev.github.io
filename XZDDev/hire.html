@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>Hire Me | XZDDev</title>
+  <meta name="description" content="Hire Aaron Doe (XZDDev) for Apple and Google platform app development." />
+  <link rel="stylesheet" href="../assets/navigation.css" />
+
+  <style>
+    :root {
+      --bg: #090a0f;
+      --surface: #141720;
+      --text: #f7f8fb;
+      --muted: #a6adbb;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+      --accent: #65e8ff;
+      --accent-two: #7b8cff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      isolation: isolate;
+      color: var(--text);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -25%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 14% 22%, rgba(76, 111, 255, 0.5) 0 8%, transparent 32%),
+        radial-gradient(circle at 84% 18%, rgba(101, 232, 255, 0.34) 0 7%, transparent 30%),
+        radial-gradient(circle at 52% 82%, rgba(180, 124, 255, 0.3) 0 8%, transparent 34%),
+        conic-gradient(from 215deg at 50% 50%, transparent 0 24%, rgba(101, 232, 255, 0.12) 34%, rgba(118, 182, 255, 0.2) 42%, transparent 55% 100%);
+      animation: auroraDrift 11s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+      will-change: transform, filter;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(108deg, transparent 32%, rgba(255, 255, 255, 0.12) 48%, transparent 64%);
+      background-size: 220% 100%;
+      animation: lightSweep 7s ease-in-out infinite;
+    }
+
+    @keyframes auroraDrift {
+      from {
+        transform: translate3d(-4%, -2%, 0) rotate(-2deg) scale(1);
+        filter: saturate(1.15) hue-rotate(-6deg);
+      }
+      to {
+        transform: translate3d(4%, 3%, 0) rotate(3deg) scale(1.12);
+        filter: saturate(1.45) hue-rotate(12deg);
+      }
+    }
+
+    @keyframes lightSweep {
+      0%, 18% { background-position: 120% 0; opacity: 0; }
+      48% { opacity: 0.36; }
+      78%, 100% { background-position: -120% 0; opacity: 0; }
+    }
+
+    a { color: inherit; }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: min(1100px, calc(100% - 2rem));
+      min-height: 100vh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      display: grid;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text);
+      font-size: 1.08rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      display: block;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand-name { white-space: nowrap; }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .nav-links a[aria-current="page"] { color: var(--text); }
+
+    main { padding: 2rem 0 1.5rem; }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      border: 1px solid rgba(118, 182, 255, 0.38);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(118, 182, 255, 0.18), rgba(255, 255, 255, 0.03) 44%, rgba(101, 232, 255, 0.12)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px rgba(101, 232, 255, 0.12);
+    }
+
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(115deg, transparent 8%, rgba(255, 255, 255, 0.12), transparent 42%);
+      opacity: 0.42;
+    }
+
+    .panel > * { position: relative; z-index: 1; }
+
+    .eyebrow {
+      margin: 0 0 0.6rem;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 0 0 1rem;
+      font-size: clamp(2.4rem, 7vw, 5.2rem);
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.8rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .button--primary {
+      border-color: transparent;
+      color: #090a0f;
+      background: var(--text);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .button--primary:hover,
+    .button--primary:focus-visible { background: #dffbff; }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .service-card {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(20, 23, 32, 0.88);
+      box-shadow: var(--shadow);
+    }
+
+    .service-label {
+      display: inline-flex;
+      margin-bottom: 0.85rem;
+      padding: 0.25rem 0.62rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h2 { margin: 0 0 0.55rem; font-size: 1.45rem; }
+
+    .service-card p { margin: 0; color: var(--muted); }
+
+    .platform-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+
+    .platform {
+      padding: 0.22rem 0.58rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .process {
+      margin-top: 1rem;
+      padding: 1.75rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: rgba(20, 23, 32, 0.88);
+      box-shadow: var(--shadow);
+    }
+
+    .process h2 { margin-bottom: 1rem; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .step-number {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: var(--accent);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-weight: 800;
+    }
+
+    .step strong { display: block; margin-bottom: 0.25rem; }
+    .step p { margin: 0; color: var(--muted); }
+
+    footer {
+      margin-top: auto;
+      padding: 1.5rem 0 2.5rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .footer-links a { color: var(--muted); font-weight: 600; text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+
+    @media (max-width: 720px) {
+      main { padding-top: 1rem; }
+      .services, .steps { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(2.4rem, 13vw, 4rem); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      body::before, body::after, .button { animation: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="brand-link" href="index.html" aria-label="XZDDev home">
+        <img src="https://github.com/XZDDev.png" alt="" class="brand-logo" />
+        <span class="brand-name">XZDDev</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNavigation">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav-links" id="primaryNavigation" aria-label="Primary" aria-hidden="true">
+        <a href="index.html">Home</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="hire.html" aria-current="page">Hire Me</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="../olilo/olilo-status.html">Olilo Status</a>
+      </nav>
+    </div>
+
+    <main>
+      <section class="panel" aria-labelledby="pageTitle">
+        <p class="eyebrow">Available for development work</p>
+        <h1 id="pageTitle">Build your next app for Apple and Google platforms.</h1>
+        <p class="lead">I’m Aaron Doe, the developer behind XZDDev. I design, build, and ship focused digital products. From a first working release to ongoing improvements across mobile, desktop, wearable, web, and server platforms.</p>
+
+        <div class="cta-row">
+          <a class="button button--primary" href="mailto:acdelectrical@icloud.com?subject=Apple%20or%20Google%20development%20enquiry&amp;body=Hi%20Aaron%2C%0A%0AI%27d%20like%20to%20discuss%20a%20development%20project.%0A%0AProject%20summary%3A%0ATarget%20platforms%3A%0ATimeline%3A%0A%0A">Start a project</a>
+          <a class="button" href="index.html#currentProjectsTitle">See my work</a>
+        </div>
+      </section>
+
+      <section class="services" aria-label="Development services">
+        <article class="service-card">
+          <span class="service-label">Apple</span>
+          <h2>Native Apple development</h2>
+          <p>Thoughtful apps built for the Apple ecosystem, with interfaces designed for each platform, reliable behaviour, and a polished path to release.</p>
+          <div class="platform-list" aria-label="Apple platforms">
+            <span class="platform">iOS</span>
+            <span class="platform">iPadOS</span>
+            <span class="platform">macOS</span>
+            <span class="platform">watchOS</span>
+            <span class="platform">Swift</span>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <span class="service-label">Google</span>
+          <h2>Native Android development</h2>
+          <p>Modern Android experiences designed for phones, tablets, and foldables, ready for the variety of devices in the Google ecosystem.</p>
+          <div class="platform-list" aria-label="Google platforms">
+            <span class="platform">Android</span>
+            <span class="platform">Tablets</span>
+            <span class="platform">Foldables</span>
+            <span class="platform">Kotlin</span>
+            <span class="platform">Google Play</span>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <span class="service-label">Product</span>
+          <h2>From idea to release</h2>
+          <p>Turn a concept or existing specification into a usable product, including interface implementation, API integration, testing, store preparation, and launch support.</p>
+        </article>
+
+        <article class="service-card">
+          <span class="service-label">Ongoing</span>
+          <h2>Improve an existing app</h2>
+          <p>Add features, modernise an interface, improve device support, resolve product issues, or bring an existing experience to another platform.</p>
+        </article>
+      </section>
+
+      <section class="process" aria-labelledby="processTitle">
+        <h2 id="processTitle">A straightforward way to work</h2>
+        <div class="steps">
+          <div class="step">
+            <span class="step-number">01</span>
+            <strong>Share the idea</strong>
+            <p>Tell me what you want to build, who it is for, and where the project currently stands.</p>
+          </div>
+          <div class="step">
+            <span class="step-number">02</span>
+            <strong>Shape the scope</strong>
+            <p>We turn the goal into a clear set of deliverables, platform choices, and practical milestones.</p>
+          </div>
+          <div class="step">
+            <span class="step-number">03</span>
+            <strong>Build and ship</strong>
+            <p>I develop the product, share progress, incorporate feedback, and prepare it for release.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© 2026 Aaron Doe (XZDDev)</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="../compliance/privacy.html">Privacy Policy</a>
+        <a href="../compliance/support.html">Support</a>
+        <a href="../compliance/legal.html">Legal</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/navigation.js"></script>
+</body>
+</html>

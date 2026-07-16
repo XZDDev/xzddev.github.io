@@ -49,26 +49,56 @@
     body::before {
       content: "";
       position: fixed;
-      inset: -35%;
+      inset: -25%;
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 16% 18%, rgba(76, 111, 255, 0.28), transparent 30rem),
-        radial-gradient(circle at 82% 12%, rgba(101, 232, 255, 0.16), transparent 24rem),
-        linear-gradient(115deg, transparent 18%, rgba(255, 255, 255, 0.035) 42%, rgba(255, 255, 255, 0.11) 50%, rgba(255, 255, 255, 0.035) 58%, transparent 82%);
-      background-size: 100% 100%, 100% 100%, 220% 220%;
-      animation: shimmerBackground 18s ease-in-out infinite alternate;
+        radial-gradient(circle at 14% 22%, rgba(76, 111, 255, 0.5) 0 8%, transparent 32%),
+        radial-gradient(circle at 84% 18%, rgba(101, 232, 255, 0.34) 0 7%, transparent 30%),
+        radial-gradient(circle at 52% 82%, rgba(180, 124, 255, 0.3) 0 8%, transparent 34%),
+        conic-gradient(from 215deg at 50% 50%, transparent 0 24%, rgba(101, 232, 255, 0.12) 34%, rgba(118, 182, 255, 0.2) 42%, transparent 55% 100%);
+      filter: saturate(1.25);
+      animation: auroraDrift 11s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+      will-change: transform, filter;
     }
 
-    @keyframes shimmerBackground {
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.34;
+      background: linear-gradient(108deg, transparent 32%, rgba(255, 255, 255, 0.12) 48%, transparent 64%);
+      background-size: 220% 100%;
+      animation: lightSweep 7s ease-in-out infinite;
+    }
+
+    @keyframes auroraDrift {
       0% {
-        transform: translate3d(-2%, -1%, 0) scale(1);
-        background-position: 0 0, 100% 0, 0% 50%;
+        transform: translate3d(-4%, -2%, 0) rotate(-2deg) scale(1);
+        filter: saturate(1.15) hue-rotate(-6deg);
       }
 
       100% {
-        transform: translate3d(2%, 1%, 0) scale(1.04);
-        background-position: 0 0, 100% 0, 100% 50%;
+        transform: translate3d(4%, 3%, 0) rotate(3deg) scale(1.12);
+        filter: saturate(1.45) hue-rotate(12deg);
+      }
+    }
+
+    @keyframes lightSweep {
+      0%, 18% {
+        background-position: 120% 0;
+        opacity: 0;
+      }
+
+      48% {
+        opacity: 0.36;
+      }
+
+      78%, 100% {
+        background-position: -120% 0;
+        opacity: 0;
       }
     }
 
@@ -269,8 +299,10 @@
 
     h1 {
       margin: 0 0 0.5rem;
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      line-height: 1.05;
+      font-size: clamp(2.4rem, 7vw, 5.2rem);
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.045em;
     }
 
     h1 code {
@@ -496,23 +528,6 @@
       line-height: 1.2;
     }
 
-    .card-shots {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.55rem;
-      margin-top: 0.15rem;
-    }
-
-    .card-shot {
-      width: 100%;
-      height: auto;
-      display: block;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.2);
-    }
-
     .section-card {
       padding: 1.75rem;
       margin-bottom: 1.5rem;
@@ -728,7 +743,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      body::before {
+      body::before,
+      body::after {
         animation: none;
       }
     }
@@ -751,6 +767,7 @@
       <nav class="nav-links" id="primaryNavigation" aria-label="Primary" aria-hidden="true">
         <a href="index.html">Home</a>
         <a href="../blog/index.html">Blog</a>
+        <a href="hire.html">Hire Me</a>
         <a href="../releasequest/releasequest.html">ReleaseQuest</a>
         <a href="../olilo/olilo-status.html">Olilo Status</a>
       </nav>
@@ -817,11 +834,6 @@
             <span class="platform-badge">Android</span>
           </div>
         </div>
-        <div class="card-shots" aria-hidden="true">
-          <img src="../releasequest/i1.png" alt="" class="card-shot" />
-          <img src="../releasequest/i2.png" alt="" class="card-shot" />
-          <img src="../releasequest/a1.png" alt="" class="card-shot" />
-        </div>
       </a>
 
       <a class="app-card app-card--highlight app-card--olilo" href="../olilo/olilo-status.html">
@@ -835,11 +847,6 @@
             <span class="platform-badge">Android</span>
             <span class="platform-badge">macOS</span>
           </div>
-        </div>
-        <div class="card-shots" aria-hidden="true">
-          <img src="../olilo/olilo-ios-1.png" alt="" class="card-shot" />
-          <img src="../olilo/olilo-ios-2.png" alt="" class="card-shot" />
-          <img src="../olilo/olilo-android-1.png" alt="" class="card-shot" />
         </div>
       </a>
 
