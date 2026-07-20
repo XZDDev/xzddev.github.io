@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="../XZDDev/favicon.svg" />
+  <title>Delete a ReleaseQuest Account | XZDDev</title>
+  <meta name="description" content="Delete or request deletion of your ReleaseQuest Account and associated data." />
+  <style>
+    :root {
+      --bg: #090a0f;
+      --surface: #141720;
+      --text: #f7f8fb;
+      --muted: #a6adbb;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+      --link: #f7f8fb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      isolation: isolate;
+    }
+
+    a { color: var(--link); }
+
+    .container {
+      width: min(1000px, calc(100% - 2rem));
+      min-height: 100vh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .brand-logo { width: 100%; height: 100%; object-fit: cover; }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.9rem;
+    }
+
+    .nav-links a,
+    .footer-links a {
+      color: var(--muted);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      padding: 0.55rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
+
+    header { padding: 2rem 0 1rem; }
+
+    .page-card {
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(118, 182, 255, 0.38);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(118, 182, 255, 0.18), rgba(255, 255, 255, 0.03) 44%, rgba(101, 232, 255, 0.12)),
+        var(--surface);
+      box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34), 0 0 34px rgba(101, 232, 255, 0.12);
+    }
+
+    h1 {
+      margin: 0 0 0.6rem;
+      font-size: clamp(2.4rem, 7vw, 5.2rem);
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    h2 { margin: 1.75rem 0 0.6rem; font-size: 1.25rem; }
+    p { margin: 0 0 1rem; color: var(--muted); }
+    ol, ul { margin: 0.5rem 0 1rem; padding-left: 1.3rem; }
+    li { margin-bottom: 0.65rem; color: var(--muted); }
+
+    .notice {
+      margin: 1.25rem 0;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 1.25rem; }
+
+    .primary-link,
+    .secondary-link {
+      display: inline-block;
+      padding: 0.92rem 1rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+    }
+
+    .primary-link { color: #090a0f; background: #f7f8fb; }
+    .secondary-link { background: var(--surface); }
+
+    footer { margin-top: auto; padding: 1.5rem 0 2.5rem; text-align: center; color: var(--muted); }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 0.75rem; }
+
+    @media (max-width: 620px) {
+      .page-card { padding: 1.4rem; }
+      .nav-links { gap: 0.25rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="brand-link" href="../XZDDev/index.html" aria-label="XZDDev home">
+        <img src="https://github.com/XZDDev.png" alt="XZDDev logo" class="brand-logo" />
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../XZDDev/index.html">Home</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </div>
+
+    <header>
+      <div class="page-card">
+        <h1>Delete Your ReleaseQuest Account</h1>
+        <p>You can permanently delete your ReleaseQuest Account and its associated online data at any time.</p>
+
+        <h2>Delete your account in the app</h2>
+        <ol>
+          <li>Open ReleaseQuest and select the Profile tab.</li>
+          <li>Tap the Edit button in the top-right corner.</li>
+          <li>Open Account Controls.</li>
+          <li>Select Delete ReleaseQuest Account and confirm.</li>
+        </ol>
+        <p>The in-app process deletes the account after any authentication confirmation required by your sign-in provider.</p>
+
+        <h2>Request deletion without the app</h2>
+        <p>
+          If you cannot access ReleaseQuest, email the address below with the subject “ReleaseQuest Account Deletion”.
+          Include your ReleaseQuest username and whether you used Apple or Google to sign in. When possible, send the
+          request from the email address associated with the account.
+        </p>
+        <div class="cta-row">
+          <a class="primary-link" href="mailto:acdelectrical@icloud.com?subject=ReleaseQuest%20Account%20Deletion">Request account deletion</a>
+        </div>
+        <div class="notice">
+          <p>
+            We may ask for limited additional information to verify that you control the account. We will never ask for
+            your Apple or Google password, authentication code, access token, or private key. Verified requests are
+            normally completed within 30 days.
+          </p>
+        </div>
+
+        <h2>Data that will be deleted</h2>
+        <ul>
+          <li>Your ReleaseQuest authentication record and account identifier.</li>
+          <li>Your username reservation, display name, biography, profile picture, visibility settings, level, and experience points.</li>
+          <li>Your friendships, friend requests, blocked-account relationships, and reports associated with the account.</li>
+          <li>Your synced ReleaseQuest Account library and its visibility information.</li>
+        </ul>
+
+        <h2>Data that remains on your device</h2>
+        <p>
+          Account deletion does not erase local lists, notes, journals, preferences, exports, or other data stored only
+          on your device. You can remove local data separately from the app's data controls, your device settings, or by
+          uninstalling the app.
+        </p>
+
+        <h2>Questions</h2>
+        <p>
+          Read the <a href="privacy.html">Privacy Policy</a> for more information, or contact
+          <a href="mailto:acdelectrical@icloud.com">acdelectrical@icloud.com</a> for help.
+        </p>
+
+        <div class="cta-row">
+          <a class="secondary-link" href="privacy.html">Privacy Policy</a>
+          <a class="secondary-link" href="legal.html">Legal &amp; Community Rules</a>
+          <a class="secondary-link" href="../releasequest/releasequest.html">← Back to ReleaseQuest</a>
+        </div>
+      </div>
+    </header>
+
+    <footer>
+      <div>© 2026 Aaron Doe (XZDDev)</div>
+      <div class="footer-links">
+        <a href="../XZDDev/index.html">Home</a>
+        <a href="../releasequest/releasequest.html">ReleaseQuest</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+        <a href="legal.html">Legal</a>
+        <a href="delete-account.html">Delete Account</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
